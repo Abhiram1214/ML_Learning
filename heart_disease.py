@@ -96,7 +96,7 @@ est2 = est.fit()
 print(est2.summary())
 
 
-X_new = heart_df[['age','male','cigsPerDay','totChol','sysBP','glucose']]
+X_new = heart_df[['age','male','cigsPerDay','totChol','sysBP','glucose','prevalentStroke']]
 Y_new = heart_df['TenYearCHD']
 
 
