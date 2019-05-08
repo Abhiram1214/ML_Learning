@@ -33,8 +33,6 @@ plt.legend()
 model = KMeans(n_clusters=3)
 model.fit(iris_df.data)
 
-model.labels_
-model.cluster_centers_
 
 predict = model.predict([[4.9,3,1.4,0.2]])
 
@@ -47,12 +45,13 @@ df['predictions'] = all_predictions
 
 
 color = ['r.','g.','b.']
-
+cluster_centers = model.cluster_centers_
 
 plt.scatter(df['sepal length (cm)'], df['petal length (cm)'], color='r')
 plt.scatter(df['sepal width (cm)'], df['petal width (cm)'], color='g')
-plt.scatter(model.cluster_centers_[0][0], model.cluster_centers_[2][1])
-plt.plot(model.labels_)
+plt.scatter(cluster_centers[:,0], cluster_centers[:,2])
+plt.scatter(cluster_centers[:,1], cluster_centers[:,3])
+#plt.plot(model.labels_)
 
 '''
 plt.scatter(df['sepal length (cm)'], df['petal length (cm)'])

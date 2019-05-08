@@ -132,7 +132,22 @@ y_pred_prob_df.head()
 '''
 
 
+#--------------------------------
 
+#clustring
+from sklearn.cluster import KMeans
+
+kmeans = KMeans(n_clusters=5)
+kmeans.fit(X)
+
+pred = kmeans.predict(X)
+
+cluster = kmeans.cluster_centers_
+pred != kmeans.labels_
+
+plt.scatter(X.iloc[:,0], X.iloc[:,1], c=pred, s=20)
+
+plt.scatter(cluster[:,0], cluster[:,1])
 
 
 
