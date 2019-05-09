@@ -7,6 +7,8 @@ Created on Thu May  9 04:31:02 2019
 Intro: practising python classes by creating a address book
 """
 
+import tkinter
+
 class address_book:
     
     def __init__(self):
@@ -18,7 +20,7 @@ class address_book:
         
         self.contacts_list[self.name] = self.number
         
-        self.display_contacts()
+        self.options()
     
     def display_contacts(self):
         
@@ -27,8 +29,6 @@ class address_book:
             print(value)            
             print("------------")
             
-            self.options()
-        
     def modify_contact(self, update_name):
         
         if update_name in self.contacts_list:
@@ -80,6 +80,24 @@ contact.add_contact("kaki", 111)
 
 
 
+'''
+
+
+#--------Tkinter--------------
+
+window = tkinter.Tk()
+window.title("Contacts book")
+label = tkinter.Label(window, text="Hello world").pack()
+
+
+btn1 = tkinter.Button(top_frame, text = "Button1", fg = "red").pack()
+btn2 = tkinter.Button(top_frame, text = "Button2", fg = "green").pack()
+
+
+top_frame = tkinter.Frame(window).pack()
+bottom_frame = tkinter.Frame(window).pack(side='bottom')
+
+window.mainloop()
 
 
 
@@ -89,14 +107,63 @@ contact.add_contact("kaki", 111)
 
 
 
+import tkinter
+
+window = tkinter.Tk()
+window.title("GUI")
+
+tkinter.Label(window, text = "Enter contact name").grid(row=0)
+tkinter.Entry(window).grid(row=0, column=1)
+
+tkinter.Label(window, text = 'Enter contact number').grid(row=1)
+tkinter.Entry(window).grid(row=1, column=1)
+tkinter.Checkbutton(window, text = "Keep me logged in").grid(columnspan=2)
+
+tkinter.Button(window, text = "submit").grid(row=3, column=1)
+window.mainloop()
+
+'''
 
 
+from tkinter import *
+
+phone_book = {}
+
+def my_contact():
+    
+   name = e1.get()
+   number = e2.get()
+    
+   phone_book[name] = number
 
 
+def display_contacts():
+    
+    tkinter.Label(master, text="Address book")
+    tkinter.Label(master, text="-------------------")
+    for key, value in phone_book.items():
+        tkinter.Label(master, text=key).grid()
+        tkinter.Label(master, text=value).grid()
+        
+           
 
 
+master = Tk()
+master.title("add contacts")
 
+e1 = Entry(master)
+e2 = Entry(master)
 
+tkinter.Label(master, text="name").grid(row=0,column=0)
+e1.grid(row=0, column=1)
 
+tkinter.Label(master, text="number").grid(row=1,column=0)
+e2.grid(row=1, column=1)
+
+tkinter.Button(master, text="Add", command = my_contact).grid(row=3)
+
+tkinter.Button(master, text="display", command = display_contacts).grid(row=3, column=2)
+
+mainloop()
 
 
