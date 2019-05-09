@@ -125,7 +125,7 @@ window.mainloop()
 '''
 
 
-from tkinter import *
+import tkinter
 
 phone_book = {}
 
@@ -146,13 +146,36 @@ def display_contacts():
         tkinter.Label(master, text=value).grid()
         
            
+def delete_entry():
+    window = Tk()
+    window.title("delete contact")
+    d1 = Entry(window)
+    
+    
+    d1.grid(row=0)
+    tkinter.Button(window, text='delete', command=delete_code).grid(row=1)  
+    
+    
+    
+def delete_code():
+    
+    if d1.get() in phone_book:
+        del phone_book[d1.get()]
+        tkinter.Label(master, text="deleted").grid(row=3,column=0)
+    else:
+        tkinter.Label(master, text="not in phonebook").grid(row=3,column=0)
 
+    
+    
 
 master = Tk()
 master.title("add contacts")
 
+
 e1 = Entry(master)
 e2 = Entry(master)
+d1 = Entry(master)
+
 
 tkinter.Label(master, text="name").grid(row=0,column=0)
 e1.grid(row=0, column=1)
@@ -160,9 +183,14 @@ e1.grid(row=0, column=1)
 tkinter.Label(master, text="number").grid(row=1,column=0)
 e2.grid(row=1, column=1)
 
+tkinter.Label(master, text="to be deleted").grid(row=4,column=0)
+d1.grid(row=4, column=1)
+
 tkinter.Button(master, text="Add", command = my_contact).grid(row=3)
 
 tkinter.Button(master, text="display", command = display_contacts).grid(row=3, column=2)
+
+tkinter.Button(master, text="delete", command = delete_code).grid(row=3, column=3)
 
 mainloop()
 
