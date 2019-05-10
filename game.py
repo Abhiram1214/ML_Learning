@@ -6,7 +6,7 @@ Created on Thu May  9 04:31:02 2019
 
 Intro: practising python classes by creating a address book
 """
-
+'''
 import tkinter
 
 class address_book:
@@ -80,52 +80,8 @@ contact.add_contact("kaki", 111)
 
 
 
-'''
-
-
-#--------Tkinter--------------
-
-window = tkinter.Tk()
-window.title("Contacts book")
-label = tkinter.Label(window, text="Hello world").pack()
-
-
-btn1 = tkinter.Button(top_frame, text = "Button1", fg = "red").pack()
-btn2 = tkinter.Button(top_frame, text = "Button2", fg = "green").pack()
-
-
-top_frame = tkinter.Frame(window).pack()
-bottom_frame = tkinter.Frame(window).pack(side='bottom')
-
-window.mainloop()
-
-
-
-
-
-
-
-
-
-import tkinter
-
-window = tkinter.Tk()
-window.title("GUI")
-
-tkinter.Label(window, text = "Enter contact name").grid(row=0)
-tkinter.Entry(window).grid(row=0, column=1)
-
-tkinter.Label(window, text = 'Enter contact number').grid(row=1)
-tkinter.Entry(window).grid(row=1, column=1)
-tkinter.Checkbutton(window, text = "Keep me logged in").grid(columnspan=2)
-
-tkinter.Button(window, text = "submit").grid(row=3, column=1)
-window.mainloop()
-
-'''
-
-
-import tkinter
+from tkinter import *
+from os import system
 
 phone_book = {}
 
@@ -142,16 +98,14 @@ def display_contacts():
     tkinter.Label(master, text="Address book")
     tkinter.Label(master, text="-------------------")
     for key, value in phone_book.items():
-        tkinter.Label(master, text=key).grid()
+        tkinter.Label(master, text=key).grid(rowspan=15)
         tkinter.Label(master, text=value).grid()
         
            
 def delete_entry():
     window = Tk()
     window.title("delete contact")
-    d1 = Entry(window)
-    
-    
+    d1 = Entry(window)    
     d1.grid(row=0)
     tkinter.Button(window, text='delete', command=delete_code).grid(row=1)  
     
@@ -193,5 +147,71 @@ tkinter.Button(master, text="display", command = display_contacts).grid(row=3, c
 tkinter.Button(master, text="delete", command = delete_code).grid(row=3, column=3)
 
 mainloop()
+
+'''
+
+
+
+from tkinter import *
+
+class address_book:
+    def __init__(self, master):
+        
+        self.phone_book = {}
+        self.master = master
+        
+        Label(master, text="name").grid(row=0,column=0)
+        Label(master, text="number").grid(row=1,column=0)
+        Label(master, text="to be deleted").grid(row=4,column=0)
+        Button(master, text="Add", command = self.my_contact).grid(row=3)
+        Button(master, text="display", command = self.display_contacts).grid(row=3, column=2)
+        Button(master, text="delete", command = self.delete_code).grid(row=3, column=3)
+        
+        
+        self.e1 = Entry(master)
+        self.e2 = Entry(master)
+        self.d1 = Entry(master)
+        
+        self.e1.grid(row=0, column=1)
+        self.e2.grid(row=1, column=1)
+        self.d1.grid(row=4, column=1)
+
+
+    def my_contact(self):
+        self.name = self.e1.get()
+        self.number = self.e2.get()
+        
+        name = self.name
+        number = self.number
+    
+        self.phone_book[name] = number
+
+    
+    def display_contacts(self):
+    
+        Label(master, text="Address book")
+        Label(master, text="-------------------")
+        
+        for key, value in self.phone_book.items():
+            Label(master, text=key).grid(rowspan=15)
+            Label(master, text=value).grid()
+
+
+    def delete_code(self):
+    
+        if self.d1.get() in self.phone_book:
+            del self.phone_book[self.d1.get()]
+            #Label(master, text="deleted").grid(row=3,column=0)
+        else:
+            Label(master, text="not in phonebook").grid(row=3,column=0)
+
+master = Tk()
+contact = address_book(master)
+master.mainloop()
+
+
+
+
+
 
 
