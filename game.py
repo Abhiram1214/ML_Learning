@@ -14,6 +14,7 @@ class address_book:
         
         self.phone_book = {}
         self.master = master
+        self.frame_header = Frame(master)
         
         Label(master, text="name").grid(row=0,column=0)
         Label(master, text="number").grid(row=1,column=0)
@@ -43,13 +44,15 @@ class address_book:
 
     
     def display_contacts(self):
-    
-        Label(master, text="Address book")
-        Label(master, text="-------------------")
         
+        #Label(master, text="Address book")
+        #Label(master, text="-------------------")
+        
+        self.frame_header.grid(row = 5, column = 0)
         for key, value in self.phone_book.items():
-            Label(master, text=key).grid(rowspan=15)
-            Label(master, text=value).grid()
+            Label(self.frame_header, text=key).grid(rowspan=15)
+            Label(self.frame_header, text=value).grid()
+            
 
 
     def delete_code(self):
@@ -63,6 +66,39 @@ class address_book:
 master = Tk()
 contact = address_book(master)
 master.mainloop()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 '''
