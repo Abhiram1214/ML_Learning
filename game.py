@@ -6,6 +6,65 @@ Created on Thu May  9 04:31:02 2019
 
 Intro: practising python classes by creating a address book
 """
+
+from tkinter import *
+
+class address_book:
+    def __init__(self, master):
+        
+        self.phone_book = {}
+        self.master = master
+        
+        Label(master, text="name").grid(row=0,column=0)
+        Label(master, text="number").grid(row=1,column=0)
+        Label(master, text="to be deleted").grid(row=4,column=0)
+        Button(master, text="Add", command = self.my_contact).grid(row=3)
+        Button(master, text="display", command = self.display_contacts).grid(row=3, column=2)
+        Button(master, text="delete", command = self.delete_code).grid(row=3, column=3)
+        
+        
+        self.e1 = Entry(master)
+        self.e2 = Entry(master)
+        self.d1 = Entry(master)
+        
+        self.e1.grid(row=0, column=1)
+        self.e2.grid(row=1, column=1)
+        self.d1.grid(row=4, column=1)
+
+
+    def my_contact(self):
+        self.name = self.e1.get()
+        self.number = self.e2.get()
+        
+        name = self.name
+        number = self.number
+    
+        self.phone_book[name] = number
+
+    
+    def display_contacts(self):
+    
+        Label(master, text="Address book")
+        Label(master, text="-------------------")
+        
+        for key, value in self.phone_book.items():
+            Label(master, text=key).grid(rowspan=15)
+            Label(master, text=value).grid()
+
+
+    def delete_code(self):
+    
+        if self.d1.get() in self.phone_book:
+            del self.phone_book[self.d1.get()]
+            #Label(master, text="deleted").grid(row=3,column=0)
+        else:
+            Label(master, text="not in phonebook").grid(row=3,column=0)
+
+master = Tk()
+contact = address_book(master)
+master.mainloop()
+
+
 '''
 import tkinter
 
@@ -149,65 +208,6 @@ tkinter.Button(master, text="delete", command = delete_code).grid(row=3, column=
 mainloop()
 
 '''
-
-
-
-from tkinter import *
-
-class address_book:
-    def __init__(self, master):
-        
-        self.phone_book = {}
-        self.master = master
-        
-        Label(master, text="name").grid(row=0,column=0)
-        Label(master, text="number").grid(row=1,column=0)
-        Label(master, text="to be deleted").grid(row=4,column=0)
-        Button(master, text="Add", command = self.my_contact).grid(row=3)
-        Button(master, text="display", command = self.display_contacts).grid(row=3, column=2)
-        Button(master, text="delete", command = self.delete_code).grid(row=3, column=3)
-        
-        
-        self.e1 = Entry(master)
-        self.e2 = Entry(master)
-        self.d1 = Entry(master)
-        
-        self.e1.grid(row=0, column=1)
-        self.e2.grid(row=1, column=1)
-        self.d1.grid(row=4, column=1)
-
-
-    def my_contact(self):
-        self.name = self.e1.get()
-        self.number = self.e2.get()
-        
-        name = self.name
-        number = self.number
-    
-        self.phone_book[name] = number
-
-    
-    def display_contacts(self):
-    
-        Label(master, text="Address book")
-        Label(master, text="-------------------")
-        
-        for key, value in self.phone_book.items():
-            Label(master, text=key).grid(rowspan=15)
-            Label(master, text=value).grid()
-
-
-    def delete_code(self):
-    
-        if self.d1.get() in self.phone_book:
-            del self.phone_book[self.d1.get()]
-            #Label(master, text="deleted").grid(row=3,column=0)
-        else:
-            Label(master, text="not in phonebook").grid(row=3,column=0)
-
-master = Tk()
-contact = address_book(master)
-master.mainloop()
 
 
 
