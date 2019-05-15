@@ -40,15 +40,24 @@ y = encoder.fit_transform(y)
 #model 
 model = KMeans(n_clusters=3)
 model.fit(X)
+iris_df['clusters'] = model.labels_
 
 y_kmeans = model.predict(X)
 centers = model.cluster_centers_
 
-plt.scatter(X.iloc[:,0], X.iloc[:,1], c=y_kmeans)
-plt.scatter(X.iloc[:,2], X.iloc[:,3], c=y_kmeans)
+
+
+
+
+
+plt.scatter(X.iloc[:,0], X.iloc[:,2], c=y_kmeans)
+plt.scatter(X.iloc[:,1], X.iloc[:,3], c=y_kmeans)
+
+
 plt.scatter(centers[2,:], c='yellow')
 plt.scatter(centers[:,0], centers[:,1])
 plt.scatter(centers[:,2], centers[:,3])
+
 
 
 
