@@ -136,18 +136,27 @@ y_pred_prob_df.head()
 
 #clustring
 from sklearn.cluster import KMeans
+from mpl_toolkits.mplot3d import Axes3D
 
-kmeans = KMeans(n_clusters=5)
+
+kmeans = KMeans(n_clusters=2)
 kmeans.fit(X)
 
 pred = kmeans.predict(X)
 
 cluster = kmeans.cluster_centers_
-pred != kmeans.labels_
 
-plt.scatter(X.iloc[:,0], X.iloc[:,1], c=pred, s=20)
 
-plt.scatter(cluster[:,0], cluster[:,1])
+'''
+plt.figure('K-Means on Breast Cancer Dataset', figsize=(7,7))
+ax = plt.axes(projection='3d')
+
+ax.scatter(X.iloc[:,0],X.iloc[:,1],X.iloc[:,2],c=y)
+'''
+
+plt.scatter(X.iloc[:,-1], X.iloc[:,-2], c=y)
+plt.scatter(cluster[:,-1], cluster[:,-2], c='r')
+
 
 
 
