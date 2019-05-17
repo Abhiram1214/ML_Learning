@@ -32,8 +32,9 @@ data_2017 = pd.read_csv('2017.csv')
 
 
 
-world_df = pd.DataFrame(data_2015)
-world_df = world_df.append(data_2015, data_2016)
+world_df = pd.DataFrame()
+world_df = world_df.append(data_2015)
+world_df = world_df.append(data_2016)
 
 data_2015.isnull().sum()
 data_2015_dummy = data_2015.copy()
@@ -93,6 +94,73 @@ y_2016_data = data_2016.iloc[:,3]
 
 lm.predict([[0.03729, 1.42727, 1.12575, 0.80925, 0.64157, 0.38583, 0.26428,	2.24743]])
 
+
+#--------------------------------
+
+world_df.isnull().sum()
+
+world_df = world_df.dropna(axis=1)
+
+
+
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LinearRegression
+from sklearn.linear_model import LogisticRegression
+from sklearn.linear_model import SGDRegressor
+from sklearn.metrics import mean_squared_error
+from sklearn.preprocessing import LabelEncoder
+
+
+X = world_df.drop(['Country', 'Happiness Rank', 'Happiness Score', 'Region', 'Dystopia Residual'], axis=1)
+y = world_df['Happiness Score']
+
+
+X_train, X_test, y_train, y_test = train_test_split(X,y, test_size=0.40, random_state=42)
+
+lm = LinearRegression()
+
+lm.fit(X_train, y_train)
+y_pred = lm.predict(X_test)
+
+#MSE 
+mse = mean_squared_error(y_test, y_pred)
+rmse = np.sqrt(mse)
+print(rmse)
+#0.5399329163493787
+
+lm.predict([[1.39651, 1.34951, 0.6657, 0.29678, 0.94143, 0.41978]])
+
+
+sns.regplot(world_df['Family'], y, data=world_df)
+#world_df.groupby(by=['Happiness Score','Freedom'])
+
+
+
+
+
+
+
+
+#logistic regression
+#y is a continuous value... for LogReg the result should be 0 or 1
+# ans is zero
+
+encoder = LabelEncoder()
+y_encoded = encoder.fit_transform(y)
+
+log_reg = LogisticRegression()
+log_reg.fit(X_train, y_train)
+
+
+log_pred = log_reg.predict(X_test)
+
+sklearn.metrics.accuracy_score(y_test,log_pred)
+#0.9736842105263158
+
+
+#confusion matrix
+from sklearn.metrics import confusion_matrix
+cm = confusion_matrix(y_test, log_pred)
 
 
 
