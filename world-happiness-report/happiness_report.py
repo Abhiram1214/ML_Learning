@@ -18,6 +18,7 @@ sns.set_style('whitegrid')
 from sklearn.preprocessing import MinMaxScaler
 from sklearn.preprocessing import LabelEncoder
 from sklearn.linear_model import LinearRegression
+from sklearn.linear_model import LogisticRegression
 from sklearn.model_selection import train_test_split
 
 
@@ -36,19 +37,39 @@ world_df = pd.DataFrame()
 world_df = world_df.append(data_2015)
 world_df = world_df.append(data_2016)
 
+world_df = world_df.dropna(axis=1)
 
-data_2015.isnull().sum()
-data_2015_dummy = data_2015.copy()
+X = world_df.drop(['Happiness Rank', 'Happiness Score', 'Country', 'Region','Health (Life Expectancy)'], axis=1)
+y = world_df['Happiness Score']
 
-'''
-# see if there is any correlation between country and region with the happiness score
 
-## create dummy variables for Person column, & drop Male as it has the lowest average of survived passengers
 
-data_2015_dummy_h = pd.get_dummies(data_2015_dummy[['Country','Region']])
-data_2015_dummy = data_2015_dummy.join(data_2015_dummy_h)
-data_2015_dummy = data_2015_dummy.drop(['Country','Region'],axis=1)
-'''
+
+#y is continuous 
+
+encoder = LabelEncoder()
+y_encoded = encoder.fit_transform(y)
+
+
+
+
+#------Pvalue
+from sklearn.preprocessing import MinMaxScaler
+
+scaler = MinMaxScaler() 
+scaler.fit(y)
+y_scaled = scaler.fit_transform(y)
+
+
+
+import statsmodels.api as sm
+
+y = y.reshape(1,-1)
+est = sm.Logit(y_encoded, X)
+est2 = est.fit()
+print(est2.summary())
+
+
 
 
 #For 2015 data
@@ -61,13 +82,13 @@ est2 = est.fit()
 est2.summary()
 #except standard error, all are in corelation with the column score
 
-data_2015_corr = data_2015.corr()
+data_2015_corr = world_df.corr()
 sns.heatmap(data_2015_corr, annot=True)
 
 
 #Linear Regression
 
-x_train, x_test, y_train, y_test = train_test_split(X_2015_data, y_2015_data, test_size=0.40, random_state=3)
+x_train, x_test, y_train, y_test = train_test_split(X, y, test_size=0.30, random_state=3)
 
 lm = LinearRegression()
 lm.fit(x_train, y_train)
@@ -93,7 +114,7 @@ y_2016_data = data_2016.iloc[:,3]
 
 
 
-lm.predict([[0.03729, 1.42727, 1.12575, 0.80925, 0.64157, 0.38583, 0.26428,	2.24743]])
+lm.predict([[0.03729, 1.42727, 1.12575, 0.80925, 0.64157, 0.38583]])
 
 
 
