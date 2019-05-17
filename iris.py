@@ -74,6 +74,60 @@ plt.scatter(X.iloc[:,0],X.iloc[:,2], c=y_kmeans, cmap='Set2', s=50)
 plt.scatter(centers[:,0], centers[:,2],c='r')
 
 
+#------------KNN
+
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.linear_model import LogisticRegression
+from sklearn.model_selection import train_test_split
+from matplotlib.colors import ListedColormap
+
+x_train, x_test, y_train, y_test = train_test_split(X, y, test_size=0.25, random_state=3)
+
+knn =  KNeighborsClassifier()
+
+knn.fit(x_train, y_train)
+
+y_pred = knn.predict(x_test)
+accuracy = knn.score(x_test, y_test)
+
+knn.predict([[3, 5.2, 4.7, 0.4]])
+
+a = knn.kneighbors_graph(X)
+a.toarray()
+
+
+
+plt.figure()
+
+ax=plt.scatter(X.iloc[:, 0], X.iloc[:, 1],c=y)
+
+#------------Logistic
+
+x_train, x_test, y_train, y_test = train_test_split(X, y, test_size=0.25, random_state=3)
+
+
+log = LogisticRegression()
+log.fit(x_train, y_train)
+log_pred = log.predict(x_test)
+
+log.score(log_pred, y_test)
+log.predict_proba(X)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

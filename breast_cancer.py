@@ -56,7 +56,11 @@ model.fit(X,y)
 
 predictions = model.predict(X)
 model.score(X,y)
+model.predict_proba(X)
 #0.9595782073813708
+
+
+
 
 
 #----for scaled values---------
@@ -66,6 +70,14 @@ model_scaled.fit(X_scaled,y)
 predictions = model_scaled.predict(X_scaled)
 model_scaled.score(X_scaled,y)
 #0.9666080843585237
+
+
+
+import statsmodels.api as sm
+
+logit_model = sm.Logit(y,X_scaled)
+result = logit_model.fit()
+print(result.summary2())
 
 
 
@@ -83,6 +95,8 @@ y_pred = log_reg.predict(x_test)
 
 sklearn.metrics.accuracy_score(y_test,y_pred)
 #0.9736842105263158
+
+log_reg.predict_proba(x_test)
 
 
 #confusion matrix
