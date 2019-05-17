@@ -28,7 +28,12 @@ import scipy as stats
 
 data_2015 = pd.read_csv('2015.csv')
 data_2016 = pd.read_csv('2016.csv')
+data_2017 = pd.read_csv('2017.csv')
 
+
+
+world_df = pd.DataFrame(data_2015)
+world_df = world_df.append(data_2015, data_2016)
 
 data_2015.isnull().sum()
 data_2015_dummy = data_2015.copy()
