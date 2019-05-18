@@ -43,13 +43,12 @@ X = world_df.drop(['Happiness Rank', 'Happiness Score', 'Country', 'Region','Hea
 y = world_df['Happiness Score']
 
 
+x_train, x_test, y_train, y_test = train_test_split(X, y, test_size=0.30, random_state=3)
 
+lm = LinearRegression()
+lm.fit(x_train, y_train)
 
-#y is continuous 
-
-encoder = LabelEncoder()
-y_encoded = encoder.fit_transform(y)
-
+y_pred = lm.predict(x_test)
 
 
 
